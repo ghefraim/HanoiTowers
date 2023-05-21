@@ -21,7 +21,7 @@ boolean playHumanSetupDone, demoAISetupDone;
 Disk d1, d2, d3;
 Disk[] disks;
 Tower towerA, towerB, towerC;
-
+//HanoiAI hanoiAI;
 void setup() {
   size(900, 700, P3D);
 
@@ -37,7 +37,13 @@ void draw() {
     playHuman();
   } else if (gameMode == 2) {
     if(!demoAISetupDone) {
-      demoAISetup();
+      //demoAISetup();
     }
+    
+    //print("SADF");
+    //drawTowers();
+    //for (int i = 0; i < disksNumber; i ++) {
+    //disks[i].drawAndDrag();
+    //}
   }
 }

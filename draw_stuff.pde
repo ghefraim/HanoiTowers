@@ -208,7 +208,7 @@ void drawTimeCounter(){
 
 
 void drawTowers(){
-  //background(23);
+  background(23);
   stroke(242, 209, 41);
   fill(209, 106, 46);
   pushMatrix();    

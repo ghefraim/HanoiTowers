@@ -1,4 +1,3 @@
-
 class Disk {
   int size;
   float posX, posY;
@@ -11,6 +10,12 @@ class Disk {
     this.posY = posY;
     this.size = size;
     this.sourceTower = sourceTower;
+  }
+  
+  int rank;
+  Disk(Tower sourceTower, int rank){
+    this.sourceTower = sourceTower;
+    this.rank = rank;
   }
   
   void drawAndDrag() {

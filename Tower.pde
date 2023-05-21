@@ -13,8 +13,8 @@ class Tower {
   void addDisk(Disk disk){
     disksOnCount ++;
     this.disksOn[disksOnCount] = disk;
+    //println(disk, disk.size);
     nextPosYAvailable = (height/2)+200 - (disksOnCount * disk.defaultHeight);
-    
   }
   
   void removeDisk(Disk disk) {
@@ -27,6 +27,20 @@ class Tower {
       nextPosYAvailable = nextPosYAvailable + disk.defaultHeight;
     }
 
+  }
+  
+  Disk removeTopDisk() {
+    Disk disk = disksOn[disksOnCount];
+    
+    if (this.disksOn.length > 0) {
+      Disk[] newDisks = new Disk[disksNumber+1];
+      arrayCopy(disksOn, 0, newDisks, 0, disksNumber+1);
+      disksOn = newDisks;
+      disksOnCount --;
+      nextPosYAvailable = nextPosYAvailable + disk.defaultHeight;
+    }
+    
+    return disk;
   }
   
   int getLastDiskSize() {
