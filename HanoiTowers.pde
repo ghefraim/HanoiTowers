@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileWriter;
 import java.io.*;
 FileWriter fw;
 BufferedWriter bw;
@@ -16,11 +15,13 @@ boolean playHumanSetupDone, demoAISetupDone;
 Disk d1, d2, d3;
 Disk[] disks;
 Tower towerA, towerB, towerC;
-int[] sourceTowerSequence = new int[1000];
-int[] targetTowerSequence = new int[1000];
+int[] sourceTowerSequence = new int[1025];
+int[] targetTowerSequence = new int[1025];
 int aiMovesCount;
 int aiCurrentMove;
 boolean invalidTextOnScreen = false;
+boolean gameFinished;
+int delayTimer;
 //HanoiAI hanoiAI;
 void setup() {
   size(900, 700, P3D);
@@ -28,6 +29,7 @@ void setup() {
   numDisks = 3; //doesn't affect anything yet
   playHumanSetupDone = false;
   demoAISetupDone = false;
+  gameFinished = false;
 }
 
 void draw() {

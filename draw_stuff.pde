@@ -38,7 +38,8 @@ void drawMenu() {
 void playHumanSetup() {
   disksNumber = Integer.parseInt(inputText);
   movesCounter = 0;
-
+  gameFinished=false;
+  
   towerA = new Tower(150);
   towerB = new Tower(450);
   towerC = new Tower(750);
@@ -63,33 +64,51 @@ void playHuman() {
   //camera(width/2, height/2 - 100, (height/2) / tan(PI*30.0 / 180.0), 0, 0, 0, 0, 1, 0);
   
   //fillPlane();
-  boolean playAgainFlag = false; // this is used to create a delay between winning and playAgain Screen
+  //boolean playAgainFlag = false; // this is used to create a delay between winning and playAgain Screen
+  if(gameFinished) {
+    delayTimer ++;
+    println(delayTimer);
   
+    drawTowers();
+    for (int i = 0; i < disksNumber; i ++) {
+      disks[i].drawFinal();
+    }
+    if(delayTimer > 100) {
+        delayTimer = 101;
+        drawPlayAgainScreen();
+    }
+  }
   //println(disks.length);
-  if(!allDisksOnLastTower()){
+  if(!allDisksOnLastTower() && !gameFinished){
     drawTowers();
     for (int i = 0; i < disksNumber; i ++) {
       disks[i].drawAndDrag();
     }
   } 
-  else if(!playAgainFlag) {
-    drawTowers();
-    for (int i = 0; i < disksNumber; i ++) {
-      disks[i].drawAndDrag();
-    }
+  else if(!gameFinished)//AI won
+  { 
+    gameFinished=true;
+   
+  }
     
-    delay = millis();
-    playAgainFlag = true;
-  }
+  //else if(!playAgainFlag) {
+  //  drawTowers();
+  //  for (int i = 0; i < disksNumber; i ++) {
+  //    disks[i].drawAndDrag();
+  //  }
+    
+  //  delay = millis();
+  //  playAgainFlag = true;
+  //}
 
-  if(playAgainFlag) {
-    delay ++;
-  }
-  if(playAgainFlag && delay>12000) {
-    drawPlayAgainScreen();
-    delay = 0;
-    playAgainFlag = false;
-  }
+  //if(playAgainFlag) {
+  //  delay ++;
+  //}
+  //if(playAgainFlag && delay>12000) {
+  //  drawPlayAgainScreen();
+  //  delay = 0;
+  //  playAgainFlag = false;
+  //}
   
   drawMoveCounter();
 
@@ -97,26 +116,19 @@ void playHuman() {
 
   
 boolean allDisksOnLastTower() {
-  for (int i = 0; i < disksNumber; i ++) {
-    if(disks[i].posX != 750) {
-      return false;
-    }
+  //for (int i = 0; i < disksNumber; i ++) {
+  //  if(disks[i].posX != 750) {
+  //    return false;
+  //  }
+  //}
+  if(towerC.disksOnCount != disksNumber) {
+    return false;
   }
-  
-  return true;
-}
-  
-void fillPlane() { // umple planul XY cu culoarea gri
-  int size = 10000;
-  int pos = 500;
-  noStroke();
-  fill(143, 220, 93); //green
-  beginShape();
-  vertex(-size, pos, -size); // bottom-left
-  vertex(size, pos, -size); // bottom-right
-  vertex(size, pos, size); // top-right
-  vertex(-size, pos, size); // top-left
-  endShape(CLOSE);
+  if(!gameFinished){
+    delayTimer = 0;
+    return true;
+  }
+  return false;
 }
 
 void mousePressed() {
@@ -160,6 +172,9 @@ void mousePressed() {
     //  loop();
     //}
   }
+  else if(gameMode == 2 && demoAISetupDone) {
+     goToNextMove();
+  }
 }
 
 void keyPressed() {
@@ -181,7 +196,7 @@ void keyReleased() {
     if (mouseY > 160 && mouseY < 190 && mouseX > width/2 - 50 && mouseX < width/2 + 50 && inputText.length() > 0) {
       disksNumber = Integer.parseInt(inputText);
     }
-  }
+  } 
 }
 
 void drawPlayAgainScreen(){

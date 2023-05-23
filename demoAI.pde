@@ -3,6 +3,8 @@ void demoAISetup(){
   disksNumber = Integer.parseInt(inputText);
   movesCounter = 0;
   
+  gameFinished=false;
+    
   aiMovesCount = 0;
   aiCurrentMove = 0;
 
@@ -29,6 +31,7 @@ void demoAISetup(){
   // Call the demoAI method to solve the game
   hanoiSolver(disksNumber, 0, 2, 1);
   
+  //println(aiMovesCount);
   demoAISetupDone = true;
 }
 
@@ -43,6 +46,7 @@ void hanoiSolver(int n, int sourceTower, int targetTower, int auxTower) {
   sourceTowerSequence[aiMovesCount] = sourceTower;
   targetTowerSequence[aiMovesCount] = targetTower;
   aiMovesCount ++;
+
   //println("Move disk " + n + " from tower " + sourceTower + " to rod " + targetTower);
   
   // Move the n-1 disks from the auxiliary tower to the target tower using the source tower as the auxiliary
@@ -52,25 +56,34 @@ void hanoiSolver(int n, int sourceTower, int targetTower, int auxTower) {
 void demoAI() {
   if(!demoAISetupDone) {
     demoAISetup();
-  }
-  else
-  { 
-    if(sourceTowerSequence[aiCurrentMove] != targetTowerSequence[aiCurrentMove]) // not won yet
-    {
-      println();
-      moveDisksAI(sourceTowerSequence[aiCurrentMove], targetTowerSequence[aiCurrentMove]);
-   
-      drawMoveCounter();
-      movesCounter++;
-      delay(500);
-      aiCurrentMove ++;
-    }
-    else //AI won
-    {
-      drawPlayAgainScreen();
-    }
+  } else {
+    //UNCOMMENT THESE IF WANT TO PLAY AUTOMATICALLY
+    //delay(500);
+    //goToNextMove();
   }
 }
+
+void goToNextMove() {
+  if(sourceTowerSequence[aiCurrentMove] != targetTowerSequence[aiCurrentMove]) // not won yet
+  {
+    println();
+    moveDisksAI(sourceTowerSequence[aiCurrentMove], targetTowerSequence[aiCurrentMove]);
+ 
+    drawMoveCounter();
+    movesCounter++;
+    //delay(500);
+    aiCurrentMove ++;
+  }
+  else //AI won
+  {
+      if(!gameFinished) {
+      //delay(1900);
+      gameFinished=true;
+    }
+    drawPlayAgainScreen();
+  }
+}
+
 void moveDisksAI(int sourceNr, int targetNr) 
 {
   Tower sourceTower, targetTower;
@@ -93,6 +106,11 @@ void moveDisksAI(int sourceNr, int targetNr)
   
   drawTowers();
   for (int i = 0; i < disksNumber; i ++) {
-    disks[i].drawAndDrag();
+    if(aiCurrentMove == aiMovesCount-1){
+      disks[i].drawFinal();
+    }
+    else {
+      disks[i].drawAndDrag();
+    }
   } 
 }

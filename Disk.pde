@@ -18,7 +18,16 @@ class Disk {
     this.sourceTower = sourceTower;
     this.rank = rank;
   }
-  
+  void drawFinal() {
+    stroke(100);
+    fill(100, 200, 100);
+    pushMatrix();
+    translate(this.posX, this.posY, 0 );
+    rotateX(PI/2);
+    drawCylinder(50, this.size, 20);
+    popMatrix();
+    //println("XS");
+  }
   void drawAndDrag() {
     //fill(255, 102, 255); //TODO: colorize disks individually
     stroke(100);
