@@ -3,6 +3,7 @@ class Disk {
   float posX, posY;
   boolean held = false;
   int defaultHeight = 20;
+  int[] currentColor = {200, 200, 200};
   Tower sourceTower;
   
   Disk(float posX, float posY, int size, Tower sourceTower) {
@@ -21,7 +22,7 @@ class Disk {
   void drawAndDrag() {
     //fill(255, 102, 255); //TODO: colorize disks individually
     stroke(100);
-    fill(200);
+    fill(currentColor[0], currentColor[1], currentColor[2]);
     pushMatrix();
     translate(this.posX, this.posY, 0 );
     rotateX(PI/2);
@@ -29,32 +30,37 @@ class Disk {
     popMatrix();
 
     // drag disk if can
-    if (validateDrag()) { // add check to be the last disk on tower
-      this.held = true;
-    } else if (!mousePressed && this.held) {
-      Tower nearestTower = findNearestTower();
-      boolean isValidMove = validateMove(nearestTower);
-      
-      if(isValidMove) {
-        nearestTower.addDisk(this);
-        this.posX = nearestTower.posX;
-        this.posY = nearestTower.nextPosYAvailable;
-        this.sourceTower.removeDisk(this);
-        this.sourceTower = nearestTower;
-        // for UI:
-        movesCounter++;
-        //println(this.size);
-      } else {
-        this.posX = sourceTower.posX;
-        this.posY = sourceTower.nextPosYAvailable; //dfH?
-      }
+
+      if (validateDrag()) { // add check to be the last disk on tower
+        this.held = true;
+      } else if (!mousePressed && this.held) {
+        Tower nearestTower = findNearestTower();
+        boolean isValidMove = validateMove(nearestTower);
         
-      this.held = false;
-    } else if (this.held) {
-        this.posX += mouseX-pmouseX;
-        this.posY += mouseY-pmouseY;
-    } 
-    noStroke();
+        if(isValidMove) {
+          nearestTower.addDisk(this);
+          this.posX = nearestTower.posX;
+          this.posY = nearestTower.nextPosYAvailable;
+          this.sourceTower.removeDisk(this);
+          this.sourceTower = nearestTower;
+          // for UI:
+          movesCounter++;
+          
+          setColorGray();
+        } else {
+          this.posX = sourceTower.posX;
+          this.posY = sourceTower.nextPosYAvailable; //dfH?
+          
+          setColorRed();
+        }
+          
+        this.held = false;
+      } else if (this.held) {
+          this.posX += mouseX-pmouseX;
+          this.posY += mouseY-pmouseY;
+      } 
+      noStroke();
+   
   }
   
   boolean validateDrag() {
@@ -94,6 +100,18 @@ class Disk {
     
     return true;
     
+  }
+
+  void setColorGray() {
+    this.currentColor[0] = 200;
+    this.currentColor[1] = 200;
+    this.currentColor[2] = 200;
+  }
+  
+   void setColorRed() {
+    this.currentColor[0] = 170;
+    this.currentColor[1] = 40;
+    this.currentColor[2] = 20;
   }
 
 }

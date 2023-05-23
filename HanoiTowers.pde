@@ -4,12 +4,7 @@ import java.io.FileWriter;
 import java.io.*;
 FileWriter fw;
 BufferedWriter bw;
-/*
-TODO:
-De facut partea cu AI
-Aranjat mai frumos Meniul de si pagina de final de joc
-Adaugat culori random la diskuri? 
-*/
+
 int numDisks, delay;
 int movesCounter;
 boolean reset;
@@ -21,6 +16,11 @@ boolean playHumanSetupDone, demoAISetupDone;
 Disk d1, d2, d3;
 Disk[] disks;
 Tower towerA, towerB, towerC;
+int[] sourceTowerSequence = new int[1000];
+int[] targetTowerSequence = new int[1000];
+int aiMovesCount;
+int aiCurrentMove;
+boolean invalidTextOnScreen = false;
 //HanoiAI hanoiAI;
 void setup() {
   size(900, 700, P3D);
@@ -36,14 +36,13 @@ void draw() {
   } else if (gameMode == 1) {
     playHuman();
   } else if (gameMode == 2) {
-    if(!demoAISetupDone) {
-      //demoAISetup();
-    }
-    
-    //print("SADF");
-    //drawTowers();
-    //for (int i = 0; i < disksNumber; i ++) {
-    //disks[i].drawAndDrag();
-    //}
+    demoAI();
   }
+}
+
+void resetGlobalVariables() {
+  //disksNumber = 0;
+  //gameMode = 0;
+  //playHumanSetupDone = false;
+  //demoAISetupDone = false;
 }

@@ -1,33 +1,33 @@
 
 void drawMenu() {
-  background(220);
+  background(30);
   
-  // draw the "Play" button
+  //
   noStroke();
   fill(150, 200, 200);
   rect(width/2 - 75, 200, 150, 50);
   fill(0);
   textSize(24);
   textAlign(CENTER, CENTER);
-  text("Play Yourself", width/2, 225);
+  text("Joaca tu", width/2, 225);
   
-  // draw the "Options" button
-  fill(150, 200, 200);
+  //
+  fill(150, 120, 200);
   rect(width/2 - 75, 260, 150, 50);
   fill(0);
-  text("AI Demo", width/2, 285);
+  text("Algoritm", width/2, 285);
   
   // draw the "Quit" button
   fill(125, 140, 170);
-  rect(width/2 - 75, 320, 150, 50);
+  rect(width/2 - 75, 390, 150, 50);
   fill(0);
-  text("Quit", width/2, 345);
+  text("Quit", width/2, 409);
   
   // draw the text field and label
-  fill(0);
+  fill(255);
   textSize(16);
   textAlign(CENTER, CENTER);
-  text("Number of discs (3-10):", width/2, 140);
+  text("Numar de discuri (3-10):", width/2, 140);
   fill(180);
   rect(width/2 - 50, 160, 100, 30);
   fill(0);
@@ -51,7 +51,6 @@ void playHumanSetup() {
     disks[i] = disk;
     towerA.addDisk(disk);
   }
-  
   playHumanSetupDone = true;
 }
 
@@ -62,7 +61,6 @@ void playHuman() {
   background(30);
   //background(140, 205, 210); // blue
   //camera(width/2, height/2 - 100, (height/2) / tan(PI*30.0 / 180.0), 0, 0, 0, 0, 1, 0);
-  drawTimeCounter();
   
   //fillPlane();
   boolean playAgainFlag = false; // this is used to create a delay between winning and playAgain Screen
@@ -92,6 +90,9 @@ void playHuman() {
     delay = 0;
     playAgainFlag = false;
   }
+  
+  drawMoveCounter();
+
 }
 
   
@@ -133,7 +134,7 @@ void mousePressed() {
     }
     
     // check if the "Quit" button was clicked
-    if (mouseX > width/2 - 75 && mouseX < width/2 + 75 && mouseY > 320 && mouseY < 370) {
+    if (mouseX > width/2 - 75 && mouseX < width/2 + 75 && mouseY > 390 && mouseY < 440) {
       // do something when the "Quit" button is clicked
       println("Quit button clicked!");
       exit();
@@ -184,28 +185,29 @@ void keyReleased() {
 }
 
 void drawPlayAgainScreen(){
-  background(220);
+  background(30);
   textSize(34);
-  fill(#737679);
-  text("Ati castigat!", 350, height/2);
-  fill(#000000);
-  rect(150, 505, 210, 90);
+  fill(255);
+  text("Ai castigat!", 360, height/2);
+  
+  drawMoveCounter();
+  textSize(26);
+  
+  fill(150, 120, 200);
+  rect(width/2 - 100, 505, 200, 60);
   fill(#F7F7F7);
-  text("Joaca din nou", 200, 560);
-  if(mouseX>150 && mouseX<150+210 && mouseY>505 && mouseY<505+90 && mousePressed){
+  text("Inapoi la meniu", width/2 - 85, 543);
+  if(mouseX>350 && mouseX<350+200 && mouseY>505 && mouseY<505+90 && mousePressed){
     gameMode = 0;
   }
 }
 
-void drawTimeCounter(){
-  noFill();
-  //rect(100,50,700,100);
+void drawMoveCounter(){
+  stroke(255);
   textSize(32);
-  //text(nr, 450, 110);
   text("Mutari:", 390,60);
-  text(int(movesCounter), 540, 60);
+  text(int(movesCounter), 500, 60);
 }
-
 
 void drawTowers(){
   background(23);
