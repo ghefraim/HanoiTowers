@@ -21,7 +21,6 @@ void demoAISetup(){
     towerA.addDisk(disk);
   }
   
-  //println(gameMode);
   background(30);
   drawTowers();
   for (int i = 0; i < disksNumber; i ++) {
@@ -31,7 +30,6 @@ void demoAISetup(){
   // Call the demoAI method to solve the game
   hanoiSolver(disksNumber, 0, 2, 1);
   
-  //println(aiMovesCount);
   demoAISetupDone = true;
 }
 
@@ -46,8 +44,6 @@ void hanoiSolver(int n, int sourceTower, int targetTower, int auxTower) {
   sourceTowerSequence[aiMovesCount] = sourceTower;
   targetTowerSequence[aiMovesCount] = targetTower;
   aiMovesCount ++;
-
-  //println("Move disk " + n + " from tower " + sourceTower + " to rod " + targetTower);
   
   // Move the n-1 disks from the auxiliary tower to the target tower using the source tower as the auxiliary
   hanoiSolver(n - 1, auxTower, targetTower, sourceTower);
@@ -69,15 +65,14 @@ void goToNextMove() {
     println();
     moveDisksAI(sourceTowerSequence[aiCurrentMove], targetTowerSequence[aiCurrentMove]);
  
-    drawMoveCounter();
     movesCounter++;
-    //delay(500);
+    drawMoveCounter();
+
     aiCurrentMove ++;
   }
   else //AI won
   {
       if(!gameFinished) {
-      //delay(1900);
       gameFinished=true;
     }
     drawPlayAgainScreen();

@@ -3,7 +3,10 @@ import java.util.List;
 import java.io.*;
 FileWriter fw;
 BufferedWriter bw;
-
+/*
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Pentru algoritm sa faca miscari, trebuie apasat click
+*/
 int numDisks, delay;
 int movesCounter;
 boolean reset;
@@ -22,7 +25,7 @@ int aiCurrentMove;
 boolean invalidTextOnScreen = false;
 boolean gameFinished;
 int delayTimer;
-//HanoiAI hanoiAI;
+
 void setup() {
   size(900, 700, P3D);
 
@@ -40,11 +43,4 @@ void draw() {
   } else if (gameMode == 2) {
     demoAI();
   }
-}
-
-void resetGlobalVariables() {
-  //disksNumber = 0;
-  //gameMode = 0;
-  //playHumanSetupDone = false;
-  //demoAISetupDone = false;
 }

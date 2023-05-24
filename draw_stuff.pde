@@ -78,7 +78,6 @@ void playHuman() {
         drawPlayAgainScreen();
     }
   }
-  //println(disks.length);
   if(!allDisksOnLastTower() && !gameFinished){
     drawTowers();
     for (int i = 0; i < disksNumber; i ++) {
@@ -91,24 +90,7 @@ void playHuman() {
    
   }
     
-  //else if(!playAgainFlag) {
-  //  drawTowers();
-  //  for (int i = 0; i < disksNumber; i ++) {
-  //    disks[i].drawAndDrag();
-  //  }
-    
-  //  delay = millis();
-  //  playAgainFlag = true;
-  //}
-
-  //if(playAgainFlag) {
-  //  delay ++;
-  //}
-  //if(playAgainFlag && delay>12000) {
-  //  drawPlayAgainScreen();
-  //  delay = 0;
-  //  playAgainFlag = false;
-  //}
+ 
   
   drawMoveCounter();
 
@@ -116,11 +98,6 @@ void playHuman() {
 
   
 boolean allDisksOnLastTower() {
-  //for (int i = 0; i < disksNumber; i ++) {
-  //  if(disks[i].posX != 750) {
-  //    return false;
-  //  }
-  //}
   if(towerC.disksOnCount != disksNumber) {
     return false;
   }
@@ -164,13 +141,7 @@ void mousePressed() {
     }
   }
   else if (gameMode == 1) { 
-    // idk what this is doing. 
-    //if(mouseX>150 && mouseX<150+210 && mouseY>505 && mouseY<505+90){
-    //  loop();
-    //}
-    //if(mouseX>600 && mouseX<600+210 && mouseY>505 && mouseY<505+90){
-    //  loop();
-    //}
+  
   }
   else if(gameMode == 2 && demoAISetupDone) {
      goToNextMove();
@@ -180,13 +151,11 @@ void mousePressed() {
 void keyPressed() {
   // append text input for the text field
   if(gameMode == 0) {
-  //  if (mouseY > 160 && mouseY < 190 && mouseX > width/2 - 50 && mouseX < width/2 + 50) {
       if (key == BACKSPACE && inputText.length() > 0) {
         inputText = inputText.substring(0, inputText.length() - 1);
       } else if (key >= '0' && key <= '9' && inputText.length() < 2) {
         inputText += key;
       }
-   // }
   }
 }
 
@@ -222,6 +191,10 @@ void drawMoveCounter(){
   textSize(32);
   text("Mutari:", 390,60);
   text(int(movesCounter), 500, 60);
+  
+  textSize(16);
+  text("Cel mai mic nr de mutari posibil:", 660, 10);
+  text(int(pow(2, disksNumber)-1), 880, 10);
 }
 
 void drawTowers(){
